@@ -20,7 +20,7 @@ jobs:
           cache: 'npm'
 
       - name: Instalar Dependencias del Paquete Angular
-        run: npm ci # Usa CI para velocidad y pureza
+        run: npm ci --legacy-peer-deps # Usa CI para velocidad, con legacy para resolver conflictos de @angular/fire
 
       - name: Compilar Código de Producción
         run: npm run build -- --configuration production
