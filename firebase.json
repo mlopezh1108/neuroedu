@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "public",
+    "site": "classroom-developz",
+    "public": "dist/front-agent/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
