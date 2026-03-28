@@ -1,0 +1,37 @@
+name: Deploy NeuroEdu to Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main # Activa el deploy siempre que hagas un Push formal a tu rama maestro
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Context
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar Dependencias del Paquete Angular
+        run: npm ci # Usa CI para velocidad y pureza
+
+      - name: Compilar Código de Producción
+        run: npm run build -- --configuration production
+
+      - name: Desplegar Artefacto en Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}' # Nativo en GH Actions
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          # Si optaste por token en vez de Service Account utiliza esto:
+          # projectId: neuroedu-tuid
+          # channelId: live
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
