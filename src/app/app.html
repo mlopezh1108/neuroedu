@@ -1,0 +1,32 @@
+<mat-toolbar class="fixed top-0 z-50 w-full primary-toolbar shadow-md flex items-center gap-4">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="font-bold tracking-wide">NeuroEdu</span>
+</mat-toolbar>
+<mat-drawer-container class="w-full h-[calc(100vh-4rem)] mt-16">
+  <mat-drawer mode="over" #sidenav>
+    <mat-nav-list>
+      <mat-list-item routerLink="/">
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>Inicio</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/students" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>groups</mat-icon>
+        <span matListItemTitle>Alumnos Perfilados</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/profile" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>person_add</mat-icon>
+        <span matListItemTitle>Perfilar Alumno</span>
+      </mat-list-item>
+      <mat-divider class="my-2"></mat-divider>
+      <mat-list-item routerLink="/biblioteca" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>library_books</mat-icon>
+        <span matListItemTitle>Biblioteca Didáctica</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

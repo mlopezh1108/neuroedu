@@ -1,0 +1,90 @@
+@reference "../../styles.css";
+
+/* Estilos para embellecer el renderizado Markdown que sale de DOMPurify */
+.markdown-body h1 {
+  @apply text-3xl font-extrabold mb-6 pb-2 border-b border-gray-200;
+}
+.markdown-body h2 {
+  @apply text-2xl font-bold mt-8 mb-4 text-gray-800;
+}
+.markdown-body h3 {
+  @apply text-xl font-semibold mt-6 mb-3 text-gray-700;
+}
+.markdown-body p {
+  @apply mb-4 leading-relaxed text-gray-600;
+}
+.markdown-body ul {
+  @apply list-disc list-inside mb-4 pl-4 text-gray-600 marker:text-primary;
+}
+.markdown-body ol {
+  @apply list-decimal list-inside mb-4 pl-4 text-gray-600 marker:font-semibold marker:text-primary;
+}
+.markdown-body li {
+  @apply mb-2 pl-2;
+}
+.markdown-body blockquote {
+  @apply border-l-4 border-primary pl-4 italic text-gray-500 bg-gray-50 py-2 my-4 rounded-r-lg;
+}
+.markdown-body strong {
+  @apply font-bold text-gray-800;
+}
+.markdown-body code {
+  @apply bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+/* Scrollbar personalizado para el editor derecho */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* ========================================================= */
+/* MAGIA DE EXPORTAR A PDF (REGLAS GLOBALES DE IMPRESIÓN)    */
+/* Todo lo que es .no-print se oculta nativamente al imprimir*/
+/* ========================================================= */
+
+@media print {
+  @page {
+    margin: 2cm; /* Márgenes estándares de papel */
+    size: A4 portrait;
+  }
+  
+  /* Override radical para evitar cortes por Flexbox, Grid o alturas 100vh durante la impresión */
+  html, body, app-root,
+  .no-print-bg, 
+  .print-expand, 
+  .custom-scrollbar {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .print-container {
+    @apply shadow-none border-none max-w-none p-0 m-0 w-full min-h-0 bg-white;
+    page-break-after: auto;
+  }
+
+  /* Aseguramos títulos no se corten entre páginas */
+  .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+    page-break-after: avoid;
+  }
+
+  /* Evitar corte por la mitad de párrafos clave o imágenes */
+  .markdown-body p, .markdown-body li {
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,187 @@
+<div class="px-6 py-8 h-full flex flex-col box-border">
+  <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-6 gap-4">
+    <div>
+      <h1 class="text-3xl font-bold text-primary mb-2">Biblioteca de Materiales</h1>
+      <p class="text-gray-500">Explora todos los documentos pedagógicos generados</p>
+    </div>
+    <mat-form-field appearance="outline" class="w-full sm:max-w-sm mb-[-1.25em]">
+      <mat-label>Filtrar por materia, tema...</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ej. Matemáticas, Sumas..."
+        #input
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden flex-1 flex flex-col"
+  >
+    <div class="overflow-auto flex-1 custom-scrollbar">
+      <table mat-table [dataSource]="dataSource" class="w-full h-full">
+        <!-- Título -->
+        <ng-container matColumnDef="title">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="font-bold text-gray-700 whitespace-nowrap px-4 py-3"
+          >
+            Título
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="font-medium text-gray-900 px-4 py-3"
+            [title]="element.title"
+          >
+            <div class="truncate max-w-[200px]">{{ element.title }}</div>
+          </td>
+        </ng-container>
+
+        <!-- Materia -->
+        <ng-container matColumnDef="subject">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="font-bold text-gray-700 whitespace-nowrap px-4 py-3"
+          >
+            Materia
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-3 text-gray-600">
+            {{ element.subject }}
+          </td>
+        </ng-container>
+
+        <!-- Tema -->
+        <ng-container matColumnDef="topic">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="font-bold text-gray-700 whitespace-nowrap px-4 py-3"
+          >
+            Tema
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-3 text-gray-600">
+            {{ element.topic }}
+          </td>
+        </ng-container>
+
+        <!-- Subtema -->
+        <ng-container matColumnDef="subTopic">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="font-bold text-gray-700 whitespace-nowrap px-4 py-3"
+          >
+            Subtema
+          </th>
+          <td mat-cell *matCellDef="let element" class="text-gray-400 italic px-4 py-3">
+            {{ element.subTopic || '-' }}
+          </td>
+        </ng-container>
+
+        <!-- Etiquetas -->
+        <ng-container matColumnDef="tags">
+          <th mat-header-cell *matHeaderCellDef class="font-bold text-gray-700 px-4 py-3">
+            Adaptación Visual
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-3">
+            <mat-chip-set>
+              @for (tag of element.tags; track tag) {
+                <mat-chip
+                  class="bg-primary/10! text-primary! text-xs! h-6! min-h-0! px-2! rounded-md! whitespace-nowrap border-0"
+                  >{{ tag }}</mat-chip
+                >
+              }
+              @if (element.tags.length === 0) {
+                <span class="text-xs text-gray-400 italic">Genérico</span>
+              }
+            </mat-chip-set>
+          </td>
+        </ng-container>
+
+        <!-- Acciones -->
+        <ng-container matColumnDef="actions">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="font-bold text-gray-700 text-center w-36 px-4 py-3"
+          >
+            Acciones
+          </th>
+          <td mat-cell *matCellDef="let element" class="text-center whitespace-nowrap px-4 py-3">
+            <button
+              mat-icon-button
+              (click)="viewMaterial(element)"
+              matTooltip="Ver Documento"
+              color="primary"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              (click)="editMaterial(element)"
+              matTooltip="Editar Documento"
+              class="text-amber-600!"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              (click)="deleteMaterial(element)"
+              matTooltip="Eliminar Documento"
+              color="warn"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          class="bg-gray-50/80 backdrop-blur-md"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="hover:bg-primary/5 transition-colors border-b border-gray-100 last:border-0"
+        ></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell text-center py-12 text-gray-500" colspan="6">
+            @if (isLoading) {
+              <div class="h-full w-full flex flex-col items-center justify-center gap-3">
+                <mat-icon class="animate-spin text-primary scale-125">sync</mat-icon>
+                <span>Cargando recursos...</span>
+              </div>
+            } @else if (input.value) {
+              <div class="h-full w-full flex flex-col items-center justify-center gap-2">
+                <mat-icon class="scale-[2] text-gray-300 opacity-50 mb-2">search_off</mat-icon>
+                <span
+                  >No se encontraron resultados para "<strong>{{ input.value }}</strong
+                  >"</span
+                >
+              </div>
+            } @else {
+              <div class="h-full w-full flex flex-col items-center justify-center gap-2">
+                <mat-icon class="scale-[2] text-gray-300 opacity-50 mb-2">menu_book</mat-icon>
+                <span>No hay materiales guardados en la biblioteca.</span>
+              </div>
+            }
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="border-t border-gray-100 bg-gray-50/50">
+      <mat-paginator 
+        [pageSize]="25" 
+        [pageSizeOptions]="[10, 25, 50, 100]" 
+        aria-label="Seleccionar la página de materiales">
+      </mat-paginator>
+    </div>
+  </div>
+</div>
