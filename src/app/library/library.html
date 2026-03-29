@@ -152,26 +152,28 @@
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell text-center py-12 text-gray-500" colspan="6">
-            @if (isLoading) {
-              <div class="h-full w-full flex flex-col items-center justify-center gap-3">
-                <mat-icon class="animate-spin text-primary scale-125">sync</mat-icon>
-                <span>Cargando recursos...</span>
-              </div>
-            } @else if (input.value) {
-              <div class="h-full w-full flex flex-col items-center justify-center gap-2">
-                <mat-icon class="scale-[2] text-gray-300 opacity-50 mb-2">search_off</mat-icon>
-                <span
-                  >No se encontraron resultados para "<strong>{{ input.value }}</strong
-                  >"</span
-                >
-              </div>
-            } @else {
-              <div class="h-full w-full flex flex-col items-center justify-center gap-2">
-                <mat-icon class="scale-[2] text-gray-300 opacity-50 mb-2">menu_book</mat-icon>
-                <span>No hay materiales guardados en la biblioteca.</span>
-              </div>
-            }
+          <td class="mat-cell border-b-0!" colspan="6">
+            <div class="w-full min-h-[400px] flex flex-col items-center justify-center text-center text-gray-500">
+              @if (isLoading) {
+                <div class="flex flex-col items-center justify-center gap-3">
+                  <mat-icon class="animate-spin text-primary scale-125">sync</mat-icon>
+                  <span>Cargando recursos...</span>
+                </div>
+              } @else if (input.value) {
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <mat-icon class="scale-[2.5] text-gray-300 opacity-60 mb-4">search_off</mat-icon>
+                  <span class="text-lg"
+                    >No se encontraron resultados para "<strong>{{ input.value }}</strong
+                    >"</span
+                  >
+                </div>
+              } @else {
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <mat-icon class="scale-[2.5] text-gray-300 opacity-60 mb-4">menu_book</mat-icon>
+                  <span class="text-lg">No hay materiales guardados en la biblioteca.</span>
+                </div>
+              }
+            </div>
           </td>
         </tr>
       </table>
