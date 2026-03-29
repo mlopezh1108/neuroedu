@@ -6,7 +6,7 @@
       alt="NeuroEdu Logo"
       class="mx-auto h-40 w-40 object-contain drop-shadow-xl rounded-full"
     />
-    <h1 class="text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
+    <h1 id="tour-welcome-title" class="text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
       Bienvenido a
       <span class="bg-clip-text text-transparent bg-linear-to-r from-primary to-purple-600"
         >NeuroEdu</span
@@ -59,9 +59,11 @@
     </mat-card>
   </div>
 
-  <!-- Botón de Acción -->
-  <div class="text-center pb-12">
+  <!-- Botones de Acción -->
+  <div class="text-center pb-12 flex flex-col md:flex-row justify-center gap-6 items-center">
+    <!-- El ID fue añadido aquí -->
     <a
+      id="tour-btn-profile"
       routerLink="/profile"
       mat-flat-button
       class="bg-primary hover:bg-primary/90 text-on-primary px-10 py-8 rounded-full text-xl shadow-xl hover:-translate-y-1 transition-all duration-300"
@@ -69,5 +71,15 @@
       <mat-icon class="mr-2 scale-125">person_add</mat-icon>
       <span class="font-bold">Comenzar a Perfilar Alumno</span>
     </a>
+
+    <!-- Nuevo botón interactivo de Tour -->
+    <button
+      mat-stroked-button
+      (click)="tutorial.startTour()"
+      class="px-10 py-8 rounded-full text-xl text-primary border-primary! hover:bg-primary/5 transition-all duration-300"
+    >
+      <mat-icon class="mr-2 scale-125">explore</mat-icon>
+      <span class="font-bold">Ver Tutorial de Uso</span>
+    </button>
   </div>
 </div>
