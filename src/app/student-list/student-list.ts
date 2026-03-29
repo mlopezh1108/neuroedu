@@ -153,12 +153,12 @@ export class GenerateMaterialDialogComponent {
       } @else {
         <div class="flex flex-col border border-gray-200 rounded-lg overflow-hidden bg-white">
           @for (mat of materials; track mat.id) {
-            <div class="px-5 py-4 border-b border-gray-200 last:border-b-0 hover:bg-primary/5 transition-colors cursor-pointer flex items-center justify-between group" (click)="openEditor(mat)">
-              <div class="flex items-center gap-3">
-                <mat-icon class="text-gray-400 group-hover:text-primary transition-colors">description</mat-icon>
-                <span class="font-medium text-gray-800 group-hover:text-primary transition-colors">{{ mat.title }}</span>
+            <div class="px-5 py-4 border-b border-gray-200 last:border-b-0 hover:bg-primary/5 transition-colors cursor-pointer flex items-center justify-between group gap-3" (click)="openEditor(mat)">
+              <div class="flex items-center gap-3 min-w-0">
+                <mat-icon class="text-gray-400 group-hover:text-primary transition-colors shrink-0">description</mat-icon>
+                <span class="font-medium text-gray-800 group-hover:text-primary transition-colors truncate" [matTooltip]="mat.title">{{ mat.title }}</span>
               </div>
-              <button mat-icon-button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity scale-90" matTooltip="Restaurar al editor">
+              <button mat-icon-button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity scale-90 shrink-0" matTooltip="Restaurar al editor">
                 <mat-icon>edit_document</mat-icon>
               </button>
             </div>
