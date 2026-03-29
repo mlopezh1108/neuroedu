@@ -33,27 +33,29 @@
       <button
         mat-stroked-button
         color="primary"
-        class="rounded-lg shadow-sm hover:shadow-md transition-all border-gray-200!"
+        class="rounded-lg shadow-sm hover:shadow-md transition-all border-gray-200! min-w-0 px-3! sm:px-4!"
         [disabled]="isSaving"
         (click)="saveToDatabase()"
+        matTooltip="Guardar en la nube"
       >
         <span class="flex items-center justify-center">
           @if (isSaving) {
-            <mat-icon class="mr-1 animate-spin">sync</mat-icon> Guardando
+            <mat-icon class="sm:mr-1 animate-spin">sync</mat-icon> <span class="hidden sm:inline">Guardando</span>
           } @else {
-            <mat-icon class="mr-1 text-primary">cloud_upload</mat-icon> {{ isEditMode ? 'Actualizar Nube' : 'Guardar Nube' }}
+            <mat-icon class="sm:mr-1 text-primary">cloud_upload</mat-icon> <span class="hidden sm:inline">{{ isEditMode ? 'Actualizar Nube' : 'Guardar Nube' }}</span>
           }
         </span>
       </button>
       <button
         mat-flat-button
         color="primary"
-        class="rounded-lg shadow-md hover:shadow-lg transition-all"
+        class="rounded-lg shadow-md hover:shadow-lg transition-all min-w-0 px-3! sm:px-4!"
         (click)="exportPdf()"
+        matTooltip="Exportar a PDF"
       >
         <span class="flex items-center justify-center">
-          <mat-icon class="mr-1">picture_as_pdf</mat-icon>
-          Exportar a PDF
+          <mat-icon class="sm:mr-1">picture_as_pdf</mat-icon>
+          <span class="hidden sm:inline">Exportar a PDF</span>
         </span>
       </button>
     </div>
