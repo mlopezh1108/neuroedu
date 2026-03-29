@@ -12,17 +12,17 @@ import DOMPurify from 'dompurify';
   imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
   encapsulation: ViewEncapsulation.None,
   template: `
-    <div class="flex justify-between items-center px-6 py-4 border-b">
-      <h2 mat-dialog-title class="m-0 text-xl font-bold text-gray-800">{{ data.title }}</h2>
-      <button mat-icon-button (click)="close()">
+    <div class="flex justify-between items-start px-4 sm:px-6 py-4 border-b w-full box-border relative">
+      <h2 mat-dialog-title class="m-0 text-lg sm:text-xl font-bold text-gray-800 break-words line-clamp-2 flex-1 pr-10 leading-tight block">{{ data.title }}</h2>
+      <button mat-icon-button (click)="close()" class="absolute right-2 top-2 sm:right-4 sm:top-4 shrink-0 text-gray-500 hover:text-gray-800">
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <mat-dialog-content class="mat-typography p-0 sm:p-6 custom-scrollbar bg-gray-50/50 min-h-[50vh]">
-      <article class="print-container prose prose-slate prose-headings:text-primary prose-a:text-accent max-w-none bg-white p-4 sm:p-6 md:p-10 rounded-none sm:rounded-xl shadow-sm sm:border sm:border-gray-100" [innerHTML]="parsedContent">
+    <mat-dialog-content class="mat-typography p-4 sm:p-6 custom-scrollbar bg-gray-50/50 min-h-[50vh] overflow-x-hidden flex flex-col box-border">
+      <article class="print-container prose prose-sm sm:prose-base prose-slate prose-headings:text-primary prose-a:text-accent w-full max-w-none bg-white p-4 sm:p-8 md:p-10 rounded-xl shadow-sm border border-gray-100 box-border break-words" [innerHTML]="parsedContent">
       </article>
     </mat-dialog-content>
-    <mat-dialog-actions align="end" class="px-6 py-4 border-t bg-gray-50 flex justify-end gap-2">
+    <mat-dialog-actions align="end" class="px-4 sm:px-6 py-4 border-t bg-gray-50 flex justify-end gap-2 w-full box-border">
       <button mat-button (click)="close()">Cerrar</button>
     </mat-dialog-actions>
   `
