@@ -159,11 +159,11 @@
                   <mat-icon class="animate-spin text-primary scale-125">sync</mat-icon>
                   <span>Cargando recursos...</span>
                 </div>
-              } @else if (input.value) {
+              } @else if (input?.value) {
                 <div class="flex flex-col items-center justify-center gap-2">
                   <mat-icon class="scale-[2.5] text-gray-300 opacity-60 mb-4">search_off</mat-icon>
                   <span class="text-lg"
-                    >No se encontraron resultados para "<strong>{{ input.value }}</strong
+                    >No se encontraron resultados para "<strong>{{ input?.value }}</strong
                     >"</span
                   >
                 </div>
