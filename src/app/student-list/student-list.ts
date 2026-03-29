@@ -136,7 +136,7 @@ export class GenerateMaterialDialogComponent {
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <mat-dialog-content class="pt-4! pb-6! max-h-[70vh] min-w-[500px]">
+    <mat-dialog-content class="pt-4! pb-6! max-h-[70vh]">
       <p class="text-sm text-gray-500 mb-6 mt-1">Materiales didácticos rescatados bajo el perfil <strong>{{ data.anonymousId }}</strong></p>
       
       @if (isLoading) {
@@ -228,15 +228,17 @@ export class StudentList implements OnInit {
 
   openGenerateMaterialDialog(profile: StudentProfile) {
     this.dialog.open(GenerateMaterialDialogComponent, {
-      width: '500px',
+      width: '95vw',
+      maxWidth: '500px',
       data: profile
     });
   }
 
   openMaterialListDialog(profile: StudentProfile) {
     this.dialog.open(MaterialListDialogComponent, {
-      width: '600px',
-      position: { top: '50px' },
+      width: '95vw',
+      maxWidth: '600px',
+      position: { top: '5vh' },
       data: profile
     });
   }
@@ -245,7 +247,8 @@ export class StudentList implements OnInit {
     if (!profileId) return;
     
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '400px',
+      width: '95vw',
+      maxWidth: '400px',
       autoFocus: false
     });
 
