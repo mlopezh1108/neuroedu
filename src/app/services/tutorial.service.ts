@@ -74,7 +74,7 @@ export class TutorialService {
           element: '#tour-btn-material',
           popover: {
             title: 'Crear Material Mágico',
-            description: 'Una vez que tu alumno está guardado, usa este botón para abrir la forja de la IA. ¡Pruébalo luego!',
+            description: 'Una vez que tu alumno está guardado, usa este botón para abrir la generación de material didáctico usando IA. ¡Pruébalo luego!',
             side: 'left'
           }
         }
