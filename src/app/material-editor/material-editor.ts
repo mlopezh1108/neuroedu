@@ -135,118 +135,82 @@ export class MaterialEditor implements OnInit {
   async saveToDatabase() {
     const currentProfile = this.profile;
     const profileId = currentProfile?.id;
-    if (!currentProfile || !profileId) return;
     
+    if (!currentProfile || !profileId) {
+      this.snackBar.open('Error: No hay un perfil activo asignado.', 'OK');
+      return;
+    }
+
+    // Si es modo edición, guardar directo sin preguntar
+    if (this.isEditMode && this.materialId) {
+      await this.executeSave(this.defaultTitle);
+      return;
+    }
+    
+    // Si es modo creación, solicitar un título para el nuevo documento
     const dialogRef = this.dialog.open(SaveMaterialDialog, {
-      width: '400px',
+      width: '95vw',
+      maxWidth: '400px',
       data: { defaultTitle: this.defaultTitle }
     });
 
     dialogRef.afterClosed().subscribe(async (title) => {
       if (!title) return;
-
-      this.isSaving = true;
-      this.cdr.detectChanges();
-
-      try {
-        const tags = this.materialService.generateTags(currentProfile);
-      
-        if (this.isEditMode && this.materialId) {
-          await this.materialService.updateMaterial(this.materialId, {
-            title: title,
-            subject: this.metaSubject,
-            topic: this.metaTopic,
-            subTopic: this.metaSubTopic,
-            content: this.rawContent,
-            tags: tags
-          });
-          this.snackBar.open('¡Material actualizado exitosamente!', 'OK', { duration: 4000, horizontalPosition: 'center', verticalPosition: 'bottom' });
-        } else {
-          await this.materialService.saveMaterial({
-            profileId: profileId,
-            profileAnonymousId: currentProfile.anonymousId,
-            title: title,
-            subject: this.metaSubject,
-            topic: this.metaTopic,
-            subTopic: this.metaSubTopic,
-            content: this.rawContent,
-            tags: tags
-          });
-          this.snackBar.open('¡Material guardado en la nube exitosamente!', 'OK', { duration: 4000, horizontalPosition: 'center', verticalPosition: 'bottom' });
-        }
-      } catch (error) {
-        console.error('Error al guardar material en Firestore', error);
-        this.snackBar.open('Ocurrió un error al guardar el documento.', 'Error', { duration: 3000 });
-      } finally {
-        this.isSaving = false;
-        this.cdr.detectChanges();
-      }
+      await this.executeSave(title);
     });
   }
 
-  exportPdf() {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Por favor, deshabilita el bloqueador de ventanas emergentes para poder exportar a PDF.');
-      return;
+  private async executeSave(title: string) {
+    this.isSaving = true;
+    this.cdr.detectChanges();
+
+    try {
+      const tags = this.materialService.generateTags(this.profile!);
+    
+      if (this.isEditMode && this.materialId) {
+        await this.materialService.updateMaterial(this.materialId, {
+          title: title,
+          subject: this.metaSubject,
+          topic: this.metaTopic,
+          subTopic: this.metaSubTopic,
+          content: this.rawContent,
+          tags: tags
+        });
+        this.defaultTitle = title;
+        this.snackBar.open('¡Material actualizado en la nube exitosamente!', 'OK', { duration: 4000, horizontalPosition: 'center', verticalPosition: 'bottom' });
+      } else {
+        const result = await this.materialService.saveMaterial({
+          profileId: this.profile!.id!,
+          profileAnonymousId: this.profile!.anonymousId,
+          title: title,
+          subject: this.metaSubject,
+          topic: this.metaTopic,
+          subTopic: this.metaSubTopic,
+          content: this.rawContent,
+          tags: tags
+        });
+        
+        // Convertimos a modo edición transparente para que los subsecuentes "guardados" solo actualicen
+        this.isEditMode = true;
+        this.materialId = result.id;
+        this.defaultTitle = title;
+        
+        this.snackBar.open('¡Nuevo material archivado en la nube exitosamente!', 'OK', { duration: 4000, horizontalPosition: 'center', verticalPosition: 'bottom' });
+      }
+    } catch (error) {
+      console.error('Error al guardar material en Firestore', error);
+      this.snackBar.open('Ocurrió un error inesperado al guardar el documento.', 'Error', { duration: 3000 });
+    } finally {
+      this.isSaving = false;
+      this.cdr.detectChanges();
     }
+  }
 
-    // Aislamos el contenido en HTML puro sin rastro de Angular o Tailwind
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html lang="es">
-        <head>
-          <title>Material_Didactico_${this.profile?.anonymousId || 'NeuroEdu'}</title>
-          <style>
-            body { 
-              font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-              padding: 40px; 
-              line-height: 1.6; 
-              color: #1f2937; 
-              max-width: 800px;
-              margin: 0 auto;
-            }
-            h1 { font-size: 2.25rem; font-weight: 800; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; margin-bottom: 1rem; color: #111827; }
-            h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #1f2937; margin-left: 0; }
-            h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #374151; }
-            p { margin-bottom: 1rem; }
-            ul { list-style-type: disc; margin-bottom: 1rem; padding-left: 1.5rem; }
-            ol { list-style-type: decimal; margin-bottom: 1rem; padding-left: 1.5rem; }
-            li { margin-bottom: 0.5rem; }
-            blockquote { 
-              border-left: 4px solid #6366f1; 
-              color: #4b5563; 
-              background-color: #f9fafb; 
-              padding: 1rem; 
-              margin: 1.5rem 0; 
-              font-style: italic;
-              border-radius: 0 0.5rem 0.5rem 0;
-            }
-            code { background-color: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; color: #e11d48; font-family: ui-monospace, monospace; font-size: 0.875rem; }
-            strong { font-weight: 700; color: #111827; }
-            @media print {
-              body { padding: 0 !important; max-width: none !important; }
-              @page { margin: 2cm; size: A4 portrait; }
-              h1, h2, h3 { page-break-after: avoid; }
-              p, li, blockquote { page-break-inside: avoid; }
-            }
-          </style>
-        </head>
-        <body>
-          ${this.parsedContent}
-        </body>
-      </html>
-    `;
-
-    printWindow.document.open();
-    printWindow.document.write(htmlContent);
-    printWindow.document.close();
-
-    // Esperar a que el navegador dibuje los estilos
+  exportPdf() {
+    // Al invocar print en la misma pestaña, aprovechamos el @media print ya estructurado en los estilos
+    // y evitamos bloqueos de ventanas emergentes (pop-ups) en chrome/safari móviles.
     setTimeout(() => {
-      printWindow.focus();
-      printWindow.print();
-      printWindow.close();
-    }, 250);
+      window.print();
+    }, 150);
   }
 }
