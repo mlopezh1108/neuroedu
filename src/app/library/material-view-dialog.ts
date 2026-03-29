@@ -18,8 +18,8 @@ import DOMPurify from 'dompurify';
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <mat-dialog-content class="mat-typography p-6 custom-scrollbar bg-gray-50/50 min-h-[50vh]">
-      <article class="print-container prose prose-slate prose-headings:text-primary prose-a:text-accent max-w-none bg-white p-6 md:p-10 rounded-xl shadow-sm border border-gray-100" [innerHTML]="parsedContent">
+    <mat-dialog-content class="mat-typography p-0 sm:p-6 custom-scrollbar bg-gray-50/50 min-h-[50vh]">
+      <article class="print-container prose prose-slate prose-headings:text-primary prose-a:text-accent max-w-none bg-white p-4 sm:p-6 md:p-10 rounded-none sm:rounded-xl shadow-sm sm:border sm:border-gray-100" [innerHTML]="parsedContent">
       </article>
     </mat-dialog-content>
     <mat-dialog-actions align="end" class="px-6 py-4 border-t bg-gray-50 flex justify-end gap-2">
