@@ -1,0 +1,15 @@
+@startuml Registro_Perfil_Estudiante
+title Flujo 1: Registro de Perfil Estudiantil
+
+actor Docente
+participant "ProfileFormComponent" as PF
+participant "ProfileService" as PS
+database "Firestore" as DB
+
+Docente -> PF : Ingresa datos sensoriales y cognitivos
+PF -> PS : Llamada a createProfile(studentData)
+PS -> DB : Guardar documento en colección 'students'
+DB --> PS : Éxito (ID generado)
+PS --> PF : Confirmación de guardado
+PF --> Docente : Mostrar mensaje de éxito
+@enduml

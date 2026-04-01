@@ -11,6 +11,7 @@ import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angu
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { ProfileService, StudentProfile } from '../services/profile.service';
 import { GeminiService } from '../services/gemini.service';
 import { MaterialService, GeneratedMaterial } from '../services/material.service';
@@ -38,7 +39,7 @@ import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-generate-material-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  imports: [MatDialogModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSelectModule],
   template: `
     <h2 mat-dialog-title class="font-bold! text-primary flex items-center gap-2">
       <mat-icon class="text-accent">auto_awesome</mat-icon> Generar Material Didáctico
@@ -48,6 +49,17 @@ import { ChangeDetectorRef } from '@angular/core';
         <p class="text-gray-600 mb-6">Especifica los detalles para generar el material adaptado al perfil <strong>{{ data.anonymousId }}</strong>.</p>
         
         <div class="flex flex-col space-y-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Nivel Escolar</mat-label>
+            <mat-select [(ngModel)]="schoolLevel" [disabled]="isGenerating">
+              <mat-option value="Primaria">Primaria</mat-option>
+              <mat-option value="Secundaria">Secundaria</mat-option>
+              <mat-option value="Bachillerato">Bachillerato</mat-option>
+              <mat-option value="Licenciatura">Licenciatura</mat-option>
+              <mat-option value="Postgrado">Postgrado</mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Materia o Asignatura</mat-label>
             <input matInput [(ngModel)]="subject" placeholder="Ej. Biología, Matemáticas..." [disabled]="isGenerating">
@@ -79,7 +91,7 @@ import { ChangeDetectorRef } from '@angular/core';
     </mat-dialog-content>
     <mat-dialog-actions align="end" class="pb-6! px-6!">
       <button mat-button mat-dialog-close class="text-gray-500!" [disabled]="isGenerating">Cancelar</button>
-      <button mat-flat-button color="primary" class="ml-2!" [disabled]="!subject || !topic || isGenerating" (click)="generateMaterial()">
+      <button mat-flat-button color="primary" class="ml-2!" [disabled]="!schoolLevel || !subject || !topic || isGenerating" (click)="generateMaterial()">
         <mat-icon class="mr-1">auto_awesome</mat-icon> Generar Documento
       </button>
     </mat-dialog-actions>
@@ -96,19 +108,21 @@ export class GenerateMaterialDialogComponent {
   topic = '';
   subTopic = '';
   additionalComments = '';
+  schoolLevel = '';
   isGenerating = false;
 
   async generateMaterial() {
     this.isGenerating = true;
     this.cdr.detectChanges();
     try {
-      const generatedContent = await this.geminiService.generateMaterial(this.data, this.subject, this.topic, this.subTopic, this.additionalComments);
+      const generatedContent = await this.geminiService.generateMaterial(this.data, this.schoolLevel, this.subject, this.topic, this.subTopic, this.additionalComments);
       
       this.dialogRef.close();
       this.router.navigate(['/material-editor'], { 
         state: { 
           content: generatedContent, 
           profile: this.data,
+          schoolLevel: this.schoolLevel,
           subject: this.subject,
           topic: this.topic,
           subTopic: this.subTopic

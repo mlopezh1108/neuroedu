@@ -11,4 +11,17 @@
   --color-on-tertiary: var(--mat-sys-on-tertiary);
   --color-surface: var(--mat-sys-surface);
   --color-on-surface: var(--mat-sys-on-surface);
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
 }
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  .dark {
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(15, 23, 42, 0.3);
+  }
+}
+
