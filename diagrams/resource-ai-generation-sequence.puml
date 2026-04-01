@@ -1,0 +1,25 @@
+@startuml
+
+title "Generación de Material con IA"
+
+' Definición de Participantes
+actor Docente
+participant "UI: Editor" as UI
+participant "Services: Gemini" as GS
+participant "Services: Firestore" as DB
+entity "Google Gemini 1.5" as AI
+
+' Flujo de Trabajo
+Docente -> UI : Selecciona Tema y Alumno
+UI -> GS : generateMaterial(prompt)
+
+GS -> AI : Request con Perfil Sensorial
+AI --> GS : Respuesta (Markdown)
+
+GS --> UI : Mostrar Material al Docente
+
+Docente -> UI : Click en Guardar
+UI -> DB : Firestore.saveDoc(Material)
+DB --> UI : Notificación de Éxito
+
+@enduml

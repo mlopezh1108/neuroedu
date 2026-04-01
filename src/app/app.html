@@ -3,6 +3,10 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span class="font-bold tracking-wide">NeuroEdu</span>
+  <div class="flex-1"></div>
+  <button mat-icon-button (click)="themeService.toggleTheme()" [title]="themeService.isDarkMode() ? 'Modo Claro' : 'Modo Oscuro'">
+    <mat-icon>{{ themeService.isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-drawer-container class="absolute h-[calc(100vh-64px)] top-[64px] bottom-0 left-0 right-0">
   <mat-drawer mode="over" #sidenav class="w-64">

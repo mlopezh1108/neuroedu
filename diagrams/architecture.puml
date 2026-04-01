@@ -1,0 +1,32 @@
+@startuml
+
+' Estilos Globales
+skinparam handwritten false
+skinparam packageStyle rectangle
+
+title Arquitectura NeuroEdu IA
+
+package "Presentación (Angular)" {
+    [UI Components] as UI
+    [Material Design] as MD
+    [Router] as RT
+}
+
+package "Servicios de Lógica" {
+    [GeminiService] as SG
+    [ProfileService] as SP
+    [MaterialService] as SM
+}
+
+database "Firebase" as DB
+cloud "Google Gemini" as AI
+
+' Relaciones Simplificadas
+UI --> SM : Pide Material
+SM --> SG : Genera con IA
+SG --> AI : API Request
+UI --> SP : Guarda Perfil
+SP --> DB : Firestore CRUD
+UI --> MD : Estilos
+
+@enduml

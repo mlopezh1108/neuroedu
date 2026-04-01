@@ -1,19 +1,19 @@
 <div class="max-w-4xl mx-auto p-4 md:p-8 space-y-8">
   <div class="text-center mb-10 mt-6">
-    <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 mb-2">
+    <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-2">
       @if (isEditMode) { Editar Perfil del Estudiante } @else { Perfil del Estudiante }
     </h1>
-    <p class="text-lg text-gray-500">Ayúdanos a conocer mejor las necesidades y preferencias del alumno</p>
+    <p class="text-lg text-gray-500 dark:text-gray-400">Ayúdanos a conocer mejor las necesidades y preferencias del alumno</p>
   </div>
 
   <form [formGroup]="profileDataForm" (ngSubmit)="submitForm()" class="space-y-6">
     <!-- Sección 1: Identificación -->
-    <mat-card class="shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100">
-      <mat-card-header class="bg-primary/5 pb-4 border-b border-gray-100 p-6 flex items-center">
+    <mat-card class="bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5">
+      <mat-card-header class="bg-primary/5 dark:bg-primary/10 pb-4 border-b border-gray-100 dark:border-white/5 p-6 flex items-center">
         <mat-icon mat-card-avatar class="text-primary scale-150 relative top-2 left-2">badge</mat-icon>
         <div class="ml-4">
           <mat-card-title class="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-purple-600">Sección 1: Identificación Anónima</mat-card-title>
-          <mat-card-subtitle class="mt-1 font-medium text-gray-500">Para proteger la privacidad del alumno</mat-card-subtitle>
+          <mat-card-subtitle class="mt-1 font-medium text-gray-500 dark:text-gray-400">Para proteger la privacidad del alumno</mat-card-subtitle>
         </div>
       </mat-card-header>
       <mat-card-content class="p-6 pt-8">
@@ -26,89 +26,89 @@
     </mat-card>
 
     <!-- Sección 2: Perfil Sensorial -->
-    <mat-card id="tour-sensory" class="shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100" formGroupName="sensory">
-      <mat-card-header class="bg-primary/5 pb-4 border-b border-gray-100 p-6 flex items-center">
+    <mat-card id="tour-sensory" class="bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5" formGroupName="sensory">
+      <mat-card-header class="bg-primary/5 dark:bg-primary/10 pb-4 border-b border-gray-100 dark:border-white/5 p-6 flex items-center">
         <mat-icon mat-card-avatar class="text-primary scale-150 relative top-2 left-2">visibility</mat-icon>
         <div class="ml-4">
           <mat-card-title class="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-purple-600">Sección 2: Perfil Sensorial</mat-card-title>
-          <mat-card-subtitle class="mt-1 font-medium text-gray-500">Seleccione las reacciones físicas</mat-card-subtitle>
+          <mat-card-subtitle class="mt-1 font-medium text-gray-500 dark:text-gray-400">Seleccione las reacciones físicas</mat-card-subtitle>
         </div>
       </mat-card-header>
       <mat-card-content class="p-6 space-y-6 pt-6">
-        <div class="bg-gray-50/70 p-5 rounded-xl border border-gray-100 shadow-inner">
-          <h3 class="font-semibold text-gray-800 text-lg flex items-center mb-4">
+        <div class="bg-gray-50/70 dark:bg-slate-800/50 p-5 rounded-xl border border-gray-100 dark:border-white/5 shadow-inner">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-lg flex items-center mb-4">
             <mat-icon class="mr-2 text-blue-500 scale-110">hearing</mat-icon> Sensibilidad Auditiva
           </h3>
           <mat-radio-group formControlName="auditory" class="flex flex-col space-y-3 ml-2 md:ml-8">
-            <mat-radio-button value="hyper">Hipersensibilidad al ruido ambiental en el salón de clases.</mat-radio-button>
-            <mat-radio-button value="none">Sin sensibilidad auditiva aparente.</mat-radio-button>
+            <mat-radio-button value="hyper" class="dark:text-gray-300">Hipersensibilidad al ruido ambiental en el salón de clases.</mat-radio-button>
+            <mat-radio-button value="none" class="dark:text-gray-300">Sin sensibilidad auditiva aparente.</mat-radio-button>
           </mat-radio-group>
         </div>
 
-        <div class="bg-gray-50/70 p-5 rounded-xl border border-gray-100 shadow-inner">
-          <h3 class="font-semibold text-gray-800 text-lg flex items-center mb-4">
+        <div class="bg-gray-50/70 dark:bg-slate-800/50 p-5 rounded-xl border border-gray-100 dark:border-white/5 shadow-inner">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-lg flex items-center mb-4">
             <mat-icon class="mr-2 text-amber-500 scale-110">lightbulb</mat-icon> Sensibilidad Visual
           </h3>
           <mat-radio-group formControlName="visual" class="flex flex-col space-y-3 ml-2 md:ml-8">
-            <mat-radio-button value="overwhelmed">Se bloquea o abruma ante un exceso de estímulos visuales en el entorno.</mat-radio-button>
-            <mat-radio-button value="none">Sin sensibilidad visual aparente.</mat-radio-button>
+            <mat-radio-button value="overwhelmed" class="dark:text-gray-300">Se bloquea o abruma ante un exceso de estímulos visuales en el entorno.</mat-radio-button>
+            <mat-radio-button value="none" class="dark:text-gray-300">Sin sensibilidad visual aparente.</mat-radio-button>
           </mat-radio-group>
         </div>
       </mat-card-content>
     </mat-card>
 
     <!-- Sección 3: Perfil Cognitivo -->
-    <mat-card id="tour-cognitive" class="shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100" formGroupName="cognitive">
-      <mat-card-header class="bg-primary/5 pb-4 border-b border-gray-100 p-6 flex items-center">
+    <mat-card id="tour-cognitive" class="bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5" formGroupName="cognitive">
+      <mat-card-header class="bg-primary/5 dark:bg-primary/10 pb-4 border-b border-gray-100 dark:border-white/5 p-6 flex items-center">
         <mat-icon mat-card-avatar class="text-primary scale-150 relative top-2 left-2">psychology</mat-icon>
         <div class="ml-4">
           <mat-card-title class="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-purple-600">Sección 3: Pensamiento y Comunicación</mat-card-title>
-          <mat-card-subtitle class="mt-1 font-medium text-gray-500">Preferencias de procesamiento</mat-card-subtitle>
+          <mat-card-subtitle class="mt-1 font-medium text-gray-500 dark:text-gray-400">Preferencias de procesamiento</mat-card-subtitle>
         </div>
       </mat-card-header>
       <mat-card-content class="p-6 pt-6 space-y-6">
-        <div class="bg-gray-50/70 p-5 rounded-xl border border-gray-100 shadow-inner">
-          <h3 class="font-semibold text-gray-800 text-lg flex items-center mb-4">
+        <div class="bg-gray-50/70 dark:bg-slate-800/50 p-5 rounded-xl border border-gray-100 dark:border-white/5 shadow-inner">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-lg flex items-center mb-4">
             <mat-icon class="mr-2 text-indigo-500 scale-110">account_tree</mat-icon> Estilo de Pensamiento
           </h3>
           <div class="flex flex-col space-y-3 ml-2 md:ml-8">
-            <mat-checkbox formControlName="visualThinking">Pensamiento Visual (Aprende y piensa principalmente con imágenes).</mat-checkbox>
-            <mat-checkbox formControlName="verbalThinking">Pensamiento Verbal / Lógico (Piensa predominantemente con palabras y listas).</mat-checkbox>
-            <mat-checkbox formControlName="kinestheticThinking">Pensamiento Kinestésico (Aprende de manera práctica, interactuando o tocando).</mat-checkbox>
-            <mat-checkbox formControlName="analyticalThinking">Pensamiento Analítico / Secuencial (Se enfoca en los detalles técnicos, patrones o reglas paso a paso).</mat-checkbox>
-            <mat-checkbox formControlName="holisticThinking">Pensamiento Holístico (Necesita comprender el "panorama general" o concepto, antes que los detalles).</mat-checkbox>
+            <mat-checkbox formControlName="visualThinking" class="dark:text-gray-300">Pensamiento Visual (Aprende y piensa principalmente con imágenes).</mat-checkbox>
+            <mat-checkbox formControlName="verbalThinking" class="dark:text-gray-300">Pensamiento Verbal / Lógico (Piensa predominantemente con palabras y listas).</mat-checkbox>
+            <mat-checkbox formControlName="kinestheticThinking" class="dark:text-gray-300">Pensamiento Kinestésico (Aprende de manera práctica, interactuando o tocando).</mat-checkbox>
+            <mat-checkbox formControlName="analyticalThinking" class="dark:text-gray-300">Pensamiento Analítico / Secuencial (Se enfoca en los detalles técnicos, patrones o reglas paso a paso).</mat-checkbox>
+            <mat-checkbox formControlName="holisticThinking" class="dark:text-gray-300">Pensamiento Holístico (Necesita comprender el "panorama general" o concepto, antes que los detalles).</mat-checkbox>
           </div>
         </div>
 
-        <div class="bg-gray-50/70 p-5 rounded-xl border border-gray-100 shadow-inner">
-          <h3 class="font-semibold text-gray-800 text-lg flex items-center mb-4">
+        <div class="bg-gray-50/70 dark:bg-slate-800/50 p-5 rounded-xl border border-gray-100 dark:border-white/5 shadow-inner">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-lg flex items-center mb-4">
             <mat-icon class="mr-2 text-indigo-500 scale-110">format_list_bulleted</mat-icon> Formato de Instrucciones
           </h3>
           <div class="flex flex-col space-y-3 ml-2 md:ml-8">
-            <mat-checkbox formControlName="stepByStep">Requiere diagramas de flujo con pasos (1, 2, 3) muy concretos.</mat-checkbox>
-            <mat-checkbox formControlName="verbalDifficulty">Presenta dificultades para procesar instrucciones verbales ambiguas o textos explicativos largos.</mat-checkbox>
+            <mat-checkbox formControlName="stepByStep" class="dark:text-gray-300">Requiere diagramas de flujo con pasos (1, 2, 3) muy concretos.</mat-checkbox>
+            <mat-checkbox formControlName="verbalDifficulty" class="dark:text-gray-300">Presenta dificultades para procesar instrucciones verbales ambiguas o textos explicativos largos.</mat-checkbox>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
 
     <!-- Sección 4: Anticipación -->
-    <mat-card id="tour-regulation" class="shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100" formGroupName="regulation">
-      <mat-card-header class="bg-primary/5 pb-4 border-b border-gray-100 p-6 flex items-center">
+    <mat-card id="tour-regulation" class="bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5" formGroupName="regulation">
+      <mat-card-header class="bg-primary/5 dark:bg-primary/10 pb-4 border-b border-gray-100 dark:border-white/5 p-6 flex items-center">
         <mat-icon mat-card-avatar class="text-primary scale-150 relative top-2 left-2">self_improvement</mat-icon>
         <div class="ml-4">
           <mat-card-title class="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-purple-600">Sección 4: Anticipación y Regulación</mat-card-title>
-          <mat-card-subtitle class="mt-1 font-medium text-gray-500">Apoyos para reducir el estrés</mat-card-subtitle>
+          <mat-card-subtitle class="mt-1 font-medium text-gray-500 dark:text-gray-400">Apoyos para reducir el estrés</mat-card-subtitle>
         </div>
       </mat-card-header>
-      <mat-card-content class="p-6 pt-6 bg-gray-50/70 shadow-inner border-t border-gray-100">
-        <h3 class="font-semibold text-gray-800 text-lg flex items-center mb-4">
+      <mat-card-content class="p-6 pt-6 bg-gray-50/70 dark:bg-slate-800/50 shadow-inner border-t border-gray-100 dark:border-white/5">
+        <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-lg flex items-center mb-4">
           <mat-icon class="mr-2 text-emerald-500 scale-110">schedule</mat-icon> Ansiedad ante Eventos Nuevos
         </h3>
         <div class="flex flex-col space-y-3 ml-2 md:ml-8">
-          <mat-checkbox formControlName="anticipation">Necesita saber exactamente qué va a pasar (anticipación) antes de un evento, examen o proyecto.</mat-checkbox>
-          <mat-checkbox formControlName="socialStories">Requiere historias sociales para anticipar reglas o situaciones (ej. antes de entrar a un laboratorio).</mat-checkbox>
-          <mat-checkbox formControlName="moreTime">Requiere contar con más tiempo o ritmos pausados para completar las actividades.</mat-checkbox>
+          <mat-checkbox formControlName="anticipation" class="dark:text-gray-300">Necesita saber exactamente qué va a pasar (anticipación) antes de un evento, examen o proyecto.</mat-checkbox>
+          <mat-checkbox formControlName="socialStories" class="dark:text-gray-300">Requiere historias sociales para anticipar reglas o situaciones (ej. antes de entrar a un laboratorio).</mat-checkbox>
+          <mat-checkbox formControlName="moreTime" class="dark:text-gray-300">Requiere contar con más tiempo o ritmos pausados para completar las actividades.</mat-checkbox>
         </div>
       </mat-card-content>
     </mat-card>
@@ -116,7 +116,7 @@
     <!-- Guardar Botón -->
     <div class="flex justify-end pt-4 pb-12 gap-4">
       @if (isEditMode) {
-        <button mat-button type="button" class="text-gray-500!" routerLink="/students">
+        <button mat-button type="button" class="text-gray-500! dark:text-gray-400!" routerLink="/students">
           Cancelar
         </button>
       }

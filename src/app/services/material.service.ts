@@ -7,6 +7,7 @@ export interface GeneratedMaterial {
   profileId: string;
   profileAnonymousId: string;
   title: string;
+  schoolLevel: string;
   subject: string;
   topic: string;
   subTopic: string;

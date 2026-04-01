@@ -81,6 +81,7 @@ export class MaterialEditor implements OnInit {
   metaSubject = 'General';
   metaTopic = 'General';
   metaSubTopic = '';
+  metaSchoolLevel = '';
 
   ngOnInit() {
     // Recuperar el contenido enviado desde el modal de la página anterior
@@ -89,6 +90,7 @@ export class MaterialEditor implements OnInit {
     const stateSubject = history.state.subject;
     const stateTopic = history.state.topic;
     const stateSubTopic = history.state.subTopic;
+    const stateSchoolLevel = history.state.schoolLevel;
     const materialId = history.state.materialId;
     
     if (materialId) {
@@ -100,6 +102,7 @@ export class MaterialEditor implements OnInit {
       this.metaSubject = stateSubject;
       this.metaTopic = stateTopic;
       this.metaSubTopic = stateSubTopic || '';
+      this.metaSchoolLevel = stateSchoolLevel || '';
       this.defaultTitle = `${stateSubject} - ${stateTopic}${this.metaSubTopic ? ` (${this.metaSubTopic})` : ''}`;
     }
     
@@ -170,6 +173,7 @@ export class MaterialEditor implements OnInit {
       if (this.isEditMode && this.materialId) {
         await this.materialService.updateMaterial(this.materialId, {
           title: title,
+          schoolLevel: this.metaSchoolLevel,
           subject: this.metaSubject,
           topic: this.metaTopic,
           subTopic: this.metaSubTopic,
@@ -183,6 +187,7 @@ export class MaterialEditor implements OnInit {
           profileId: this.profile!.id!,
           profileAnonymousId: this.profile!.anonymousId,
           title: title,
+          schoolLevel: this.metaSchoolLevel,
           subject: this.metaSubject,
           topic: this.metaTopic,
           subTopic: this.metaSubTopic,

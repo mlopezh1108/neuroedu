@@ -4,13 +4,13 @@
   @if (profiles$ | async; as profiles) {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       @for (profile of profiles; track profile.id) {
-        <mat-card class="hover:shadow-lg transition-shadow duration-300 h-full">
-          <mat-card-header class="bg-primary/5 pb-4 pt-4 rounded-t-lg relative">
+        <mat-card class="hover:shadow-lg transition-shadow duration-300 h-full bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5">
+          <mat-card-header class="bg-primary/5 dark:bg-primary/10 pb-4 pt-4 rounded-t-lg relative">
             <div mat-card-avatar class="bg-primary text-white flex items-center justify-center rounded-full w-10 h-10 mt-1">
               <mat-icon>person</mat-icon>
             </div>
-            <mat-card-title class="text-lg! font-bold">ID: {{ profile.anonymousId }}</mat-card-title>
-            <mat-card-subtitle>Perfil Estudiantil</mat-card-subtitle>
+            <mat-card-title class="text-lg! font-bold dark:text-white">ID: {{ profile.anonymousId }}</mat-card-title>
+            <mat-card-subtitle class="dark:text-gray-400">Perfil Estudiantil</mat-card-subtitle>
             
             <button id="tour-btn-material" mat-mini-fab color="accent" class="absolute! right-4 top-4 shadow-md!" matTooltip="Generar material didáctico" (click)="openGenerateMaterialDialog(profile)">
               <mat-icon>auto_awesome</mat-icon>
@@ -20,63 +20,63 @@
           <mat-card-content class="pt-6">
             <!-- Sensorial -->
             <div class="mb-4">
-              <h3 class="text-sm font-semibold uppercase text-gray-500 mb-2 flex items-center gap-2">
+              <h3 class="text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-2">
                 <mat-icon class="scale-75 text-primary">visibility</mat-icon> Perfil Sensorial
               </h3>
               <mat-chip-set>
-                @if (profile.sensory.auditory === 'hyper') { <mat-chip class="bg-blue-100! text-blue-800!">Hiper Auditivo</mat-chip> }
-                @if (profile.sensory.visual === 'overwhelmed') { <mat-chip class="bg-blue-100! text-blue-800!">Abrumo Visual</mat-chip> }
-                @if (profile.sensory.auditory === 'none' && profile.sensory.visual === 'none') { <span class="text-gray-400 text-sm">Sin particularidades</span> }
+                @if (profile.sensory.auditory === 'hyper') { <mat-chip class="bg-blue-100! text-blue-800! dark:bg-blue-900/40! dark:text-blue-200!">Hiper Auditivo</mat-chip> }
+                @if (profile.sensory.visual === 'overwhelmed') { <mat-chip class="bg-blue-100! text-blue-800! dark:bg-blue-900/40! dark:text-blue-200!">Abrumo Visual</mat-chip> }
+                @if (profile.sensory.auditory === 'none' && profile.sensory.visual === 'none') { <span class="text-gray-400 text-sm italic">Sin particularidades</span> }
               </mat-chip-set>
             </div>
 
-            <mat-divider class="my-3"></mat-divider>
+            <mat-divider class="my-3 opacity-50"></mat-divider>
 
             <!-- Cognitivo -->
             <div class="mb-4">
-              <h3 class="text-sm font-semibold uppercase text-gray-500 mb-2 flex items-center gap-2">
+              <h3 class="text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-2">
                 <mat-icon class="scale-75 text-accent">psychology</mat-icon> Estilo Cognitivo
               </h3>
               <mat-chip-set>
-                @if (profile.cognitive.visualThinking) { <mat-chip class="bg-purple-100! text-purple-800! whitespace-nowrap">Pensador Visual</mat-chip> }
-                @if (profile.cognitive.verbalThinking) { <mat-chip class="bg-purple-100! text-purple-800! whitespace-nowrap">Pensador Verbal</mat-chip> }
-                @if (profile.cognitive.kinestheticThinking) { <mat-chip class="bg-purple-100! text-purple-800! whitespace-nowrap">Kinestésico</mat-chip> }
-                @if (profile.cognitive.analyticalThinking) { <mat-chip class="bg-purple-100! text-purple-800! whitespace-nowrap">Analítico</mat-chip> }
-                @if (profile.cognitive.holisticThinking) { <mat-chip class="bg-purple-100! text-purple-800! whitespace-nowrap">Holístico</mat-chip> }
-                @if (profile.cognitive.stepByStep) { <mat-chip class="bg-purple-100! text-purple-800! whitespace-nowrap">Paso a paso</mat-chip> }
-                @if (profile.cognitive.verbalDifficulty) { <mat-chip class="bg-red-100! text-red-800! whitespace-nowrap">Dificultad Verbal</mat-chip> }
+                @if (profile.cognitive.visualThinking) { <mat-chip class="bg-purple-100! text-purple-800! dark:bg-purple-900/40! dark:text-purple-200! whitespace-nowrap">Pensador Visual</mat-chip> }
+                @if (profile.cognitive.verbalThinking) { <mat-chip class="bg-purple-100! text-purple-800! dark:bg-purple-900/40! dark:text-purple-200! whitespace-nowrap">Pensador Verbal</mat-chip> }
+                @if (profile.cognitive.kinestheticThinking) { <mat-chip class="bg-purple-100! text-purple-800! dark:bg-purple-900/40! dark:text-purple-200! whitespace-nowrap">Kinestésico</mat-chip> }
+                @if (profile.cognitive.analyticalThinking) { <mat-chip class="bg-purple-100! text-purple-800! dark:bg-purple-900/40! dark:text-purple-200! whitespace-nowrap">Analítico</mat-chip> }
+                @if (profile.cognitive.holisticThinking) { <mat-chip class="bg-purple-100! text-purple-800! dark:bg-purple-900/40! dark:text-purple-200! whitespace-nowrap">Holístico</mat-chip> }
+                @if (profile.cognitive.stepByStep) { <mat-chip class="bg-purple-100! text-purple-800! dark:bg-purple-900/40! dark:text-purple-200! whitespace-nowrap">Paso a paso</mat-chip> }
+                @if (profile.cognitive.verbalDifficulty) { <mat-chip class="bg-red-100! text-red-800! dark:bg-red-900/40! dark:text-red-200! whitespace-nowrap">Dificultad Verbal</mat-chip> }
                 @if (!profile.cognitive.visualThinking && !profile.cognitive.verbalThinking && !profile.cognitive.kinestheticThinking && !profile.cognitive.analyticalThinking && !profile.cognitive.holisticThinking && !profile.cognitive.stepByStep && !profile.cognitive.verbalDifficulty) {
-                  <span class="text-gray-400 text-sm">Sin registrar</span>
+                  <span class="text-gray-400 text-sm italic">Sin registrar</span>
                 }
               </mat-chip-set>
             </div>
 
-            <mat-divider class="my-3"></mat-divider>
+            <mat-divider class="my-3 opacity-50"></mat-divider>
 
             <!-- Regulación -->
             <div>
-              <h3 class="text-sm font-semibold uppercase text-gray-500 mb-2 flex items-center gap-2">
+              <h3 class="text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-2">
                 <mat-icon class="scale-75 text-warn">self_improvement</mat-icon> Apoyo y Regulación
               </h3>
               <mat-chip-set>
-                @if (profile.regulation.anticipation) { <mat-chip class="bg-green-100! text-green-800!">Anticipación</mat-chip> }
-                @if (profile.regulation.socialStories) { <mat-chip class="bg-green-100! text-green-800!">Historias Sociales</mat-chip> }
-                @if (profile.regulation.moreTime) { <mat-chip class="bg-green-100! text-green-800!">Más tiempo</mat-chip> }
+                @if (profile.regulation.anticipation) { <mat-chip class="bg-green-100! text-green-800! dark:bg-green-900/40! dark:text-green-200!">Anticipación</mat-chip> }
+                @if (profile.regulation.socialStories) { <mat-chip class="bg-green-100! text-green-800! dark:bg-green-900/40! dark:text-green-200!">Historias Sociales</mat-chip> }
+                @if (profile.regulation.moreTime) { <mat-chip class="bg-green-100! text-green-800! dark:bg-green-900/40! dark:text-green-200!">Más tiempo</mat-chip> }
                 @if (!profile.regulation.anticipation && !profile.regulation.socialStories && !profile.regulation.moreTime) {
-                  <span class="text-gray-400 text-sm">Sin apoyos específicos</span>
+                  <span class="text-gray-400 text-sm italic">Sin apoyos específicos</span>
                 }
               </mat-chip-set>
             </div>
           </mat-card-content>
           
-          <mat-divider></mat-divider>
-          <mat-card-actions class="flex justify-between items-center pt-2 pb-2 px-4 bg-gray-50 rounded-b-lg">
-            <button mat-stroked-button color="primary" class="bg-white! border-gray-300!" (click)="openMaterialListDialog(profile)" matTooltip="Materiales Guardados">
-              <mat-icon>folder_open</mat-icon>
-              Archivo
+          <mat-divider class="opacity-50"></mat-divider>
+          <mat-card-actions class="flex justify-between items-center pt-2 pb-2 px-4 bg-gray-50 dark:bg-slate-800 rounded-b-lg">
+            <button mat-stroked-button color="primary" class="bg-white! dark:bg-slate-900! border-gray-300! dark:border-white/10!" (click)="openMaterialListDialog(profile)" matTooltip="Materiales Guardados">
+              <mat-icon class="dark:text-primary">folder_open</mat-icon>
+              <span class="dark:text-gray-200">Archivo</span>
             </button>
             <div class="flex gap-1">
-              <button mat-icon-button class="text-gray-500! hover:text-primary! transition-colors" (click)="editProfile(profile)" matTooltip="Editar Perfil">
+              <button mat-icon-button class="text-gray-500! dark:text-gray-400! hover:text-primary! transition-colors" (click)="editProfile(profile)" matTooltip="Editar Perfil">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-icon-button color="warn" class="opacity-80 hover:opacity-100 transition-opacity" (click)="deleteProfile(profile.id)" matTooltip="Eliminar permanentemente">
@@ -85,6 +85,7 @@
             </div>
           </mat-card-actions>
         </mat-card>
+
       }
     </div>
   } @else {
